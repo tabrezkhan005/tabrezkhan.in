@@ -1,0 +1,22 @@
+"use client";
+
+import { Main } from "@/components/main";
+import { Cursor } from "@/components/cursor";
+import FullpageProvider from "@/components/fullpageProvider";
+import { HeaderNavigation } from "@/components/headerNavigation";
+import { IntroOverlay } from "@/components/intro-overlay/IntroOverlay";
+
+import "./index.css";
+
+export default function HomePage() {
+  return (
+    <>
+      <IntroOverlay />
+      <Cursor />
+      <HeaderNavigation />
+      <FullpageProvider>
+        <Main />
+      </FullpageProvider>
+    </>
+  );
+}
