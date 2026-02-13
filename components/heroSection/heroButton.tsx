@@ -3,7 +3,6 @@ import Image from "next/image";
 import Magentic from "../ui/magentic";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
-gsap.registerPlugin(CustomEase);
 
 export function HeroButton({}) {
   const rotateImageRef = useRef<gsap.core.Timeline | null>(null);

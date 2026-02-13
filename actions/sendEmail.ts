@@ -8,7 +8,7 @@ export async function sendEmail(values: TFormSchema) {
   const resend = new Resend("re_L8AunFxe_AW5vS1eBxxpu3E22H1NrPouQ");
   const { data, error } = await resend.emails.send({
     from: `${values.name} <onboarding@resend.dev>`,
-    to: ["hello@tabrezkhan.in"],
+    to: ["hello@vipulkumar.dev"],
     subject: "Customer Email",
     text: `Email = ${values.email} \n\nName = ${values.name} \n\nMessage = ${values.message}`,
   });

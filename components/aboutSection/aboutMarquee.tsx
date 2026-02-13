@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import Image from "next/image";
 import gsap from "gsap";
 import CustomEase from "gsap/CustomEase";
-gsap.registerPlugin(CustomEase);
 import { cn } from "@/lib/utils";
 import NextIcon from "@/public/svg/nextjsIcon.svg";
 import TailwindIcon from "@/public/svg/tailwindIcon.svg";

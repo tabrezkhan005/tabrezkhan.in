@@ -17,7 +17,7 @@ export function HeroContent() {
   const statusRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const heroEase = CustomEase.create("heroEase", "M0,0 C0.22,1 0.36,1 1,1");
+    const ease = CustomEase.create("heroEase", "M0,0 C0.22,1 0.36,1 1,1");
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({ delay: 2.8 });

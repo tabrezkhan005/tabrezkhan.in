@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useRef } from "react";
 import { Header } from "@/components/header";
 import { Bulge } from "@/components/bulge";
