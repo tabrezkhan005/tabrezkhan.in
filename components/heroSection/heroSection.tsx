@@ -1,21 +1,21 @@
 import React, { useRef } from "react";
-
-import { HeroWrapper } from "@/components/heroSection/heroWrapper";
 import { Header } from "@/components/header";
 import { Bulge } from "@/components/bulge";
-import { ImageSequence } from "@/components/heroSection/imageSequence";
+import { HeroContent } from "@/components/heroSection/heroContent";
+import { WebGLBackground } from "@/components/heroSection/webglBackground";
 
-export function HeroSection({}) {
+export function HeroSection() {
   const sectionRef = useRef<HTMLDivElement | null>(null);
   return (
     <section
       ref={sectionRef}
-      className="section section__1 darkGradient first relative z-0 px-paddingX text-colorLight"
+      className="section section__1 first relative z-0 overflow-hidden text-colorLight"
+      style={{ background: "#0a0a0a" }}
     >
       <Bulge type="Light" />
+      <WebGLBackground />
       <Header color="Light" />
-      <HeroWrapper />
-      <ImageSequence sectionRef={sectionRef} />
+      <HeroContent />
     </section>
   );
 }

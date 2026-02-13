@@ -7,14 +7,14 @@
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
     /* customs */
-    --colorPrimary: #ffe600;
-    --colorDark: #0e0d0c;
+    --colorPrimary: #c8f031;
+    --colorDark: #0a0a0a;
     --colorSecondaryDark: #404040;
-    --colorSecondaryHalfDark: #1a1a1a;
-    --colorLight: #ffffff;
-    --colorSecondaryLight: #bfbfbf;
+    --colorSecondaryHalfDark: #141414;
+    --colorLight: #f0f0f0;
+    --colorSecondaryLight: #8a8a8a;
     --colorSecondaryHalfLight: #f2f2f2;
-    --colorWhite: #fff;
+    --colorWhite: #fafafa;
     --paddingX: 6vw;
     --paddingY: 110px;
     --maxWidth: 1690px;
@@ -95,10 +95,10 @@
   }
   body {
     @apply lightGradient text-foreground;
-    font-family: "DM Sans", sans-serif;
+    font-family: var(--font-inter), "Inter", system-ui, sans-serif;
   }
   .darkGradient {
-    background: linear-gradient(90deg, #000000 0%, #222121 100%);
+    background: linear-gradient(90deg, #0a0a0a 0%, #151515 100%);
   }
 
   .fontsize-inherit {
@@ -110,8 +110,8 @@
   }
 
   *::selection {
-    color: var(--colorDark);
-    background-color: var(--colorPrimary);
+    color: #0a0a0a;
+    background-color: #c8f031;
   }
 }
 
@@ -207,7 +207,7 @@ input:-webkit-autofill:active {
 }
 
 .darkGradient {
-  background: linear-gradient(90deg, #000000 0%, #222121 100%);
+  background: linear-gradient(90deg, #0a0a0a 0%, #151515 100%);
 }
 
 .section {

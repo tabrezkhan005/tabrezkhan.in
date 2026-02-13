@@ -77,7 +77,6 @@ export function HeaderNavigation() {
       name: "Home",
       href: links.home,
     },
-
     {
       name: "Work",
       href: links.work,
@@ -87,8 +86,8 @@ export function HeaderNavigation() {
       href: links.email,
     },
     {
-      name: "Twitter/X",
-      href: links.twitter,
+      name: "LinkedIn",
+      href: links.linkedin,
     },
   ];
   return (

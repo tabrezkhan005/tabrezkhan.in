@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { DM_Sans } from "next/font/google";
-import localFont from "next/font/local";
+import { Inter, Space_Grotesk } from "next/font/google";
 import GoogleAnalytics from "@/app/GoogleAnalytics";
 import Script from "next/script";
 
@@ -10,21 +9,20 @@ import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
 gsap.registerPlugin(CustomEase);
 
-const dM_Sans = DM_Sans({ subsets: ["latin-ext"] });
-const satoshi = localFont({
-  src: "../font/satoshi/Satoshi-Variable.woff2",
-  style: "normal",
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-inter",
 });
 
-const helvetica = localFont({
-  src: "../font/helvetica/HelveticaNowDisplay-Medium.woff2",
-  style: "normal",
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space-grotesk",
 });
 
 export const metadata: Metadata = {
-  title: "Vipul Kumar • Developer",
+  title: "Tabrez Khan - Developer",
   description:
-    "Vipul Kumar is a developer who creates beautiful and pixel perfect websites with zero effort in reviews.",
+    "Tabrez Khan is a developer who crafts high-performance, pixel-perfect digital experiences with precision and innovation.",
 };
 
 export default function RootLayout({
@@ -52,7 +50,7 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
 
-      <body className={helvetica.className}>
+      <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans`}>
         <StoreProvider>{children}</StoreProvider>
       </body>
       <Script src="https://cdn.jsdelivr.net/gh/vipulkumar-dev/gsap@2024/ScrambleTextPlugin.min.js" />

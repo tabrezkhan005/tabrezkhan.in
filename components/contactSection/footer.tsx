@@ -1,7 +1,8 @@
 import { FooterGroup } from "@/components/contactSection/footerGroup";
 import { links } from "@/data/data";
 import { cn, getJoinedDate } from "@/lib/utils";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
+
 export function Footer({ className }: { className?: string }) {
   const [currentTime, setCurrentTime] = useState("");
 
@@ -25,7 +26,7 @@ export function Footer({ className }: { className?: string }) {
   return (
     <footer
       className={cn(
-        "footer__links absolute flex  w-full flex-wrap   px-paddingX mix-blend-difference ",
+        "footer__links absolute flex w-full flex-wrap px-paddingX mix-blend-difference",
         className,
       )}
     >
@@ -37,9 +38,9 @@ export function Footer({ className }: { className?: string }) {
         />
         <FooterGroup
           className="hidden md:block"
-          title="OPEN SOURCE"
+          title="SOURCE"
           isMagnetic={true}
-          links={[{ href: links.sourceCode, text: "View on GitHub" }]}
+          links={[{ href: links.sourceCode, text: "GitHub" }]}
         />
 
         <FooterGroup
@@ -49,7 +50,7 @@ export function Footer({ className }: { className?: string }) {
           links={[
             { href: links.email, text: "Email" },
             { href: links.twitter, text: "Twitter" },
-            { href: links.telegram, text: "Telegram" },
+            { href: links.linkedin, text: "LinkedIn" },
             { href: links.github, text: "Github" },
           ]}
         />

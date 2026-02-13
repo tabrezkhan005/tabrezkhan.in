@@ -1,23 +1,8 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import { gsap } from "gsap";
 
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  display: "swap",
-});
-
-/**
- * Fullscreen cinematic intro overlay.
- * Session-based skip: on first visit we run the timeline and set
- * sessionStorage[INTRO_SEEN_KEY] = "true". On subsequent navigations
- * in the same tab/session we read that key and skip the intro (return null,
- * call onComplete). Closing the tab clears sessionStorage so the next
- * visit gets the intro again.
- */
 const INTRO_SEEN_KEY = "portfolio-intro-seen";
 const BODY_LOCK_CLASS = "intro-overlay-active";
 
@@ -27,8 +12,11 @@ export function IntroOverlay({
   onComplete?: () => void;
 }) {
   const overlayRef = useRef<HTMLDivElement>(null);
-  const hiRef = useRef<HTMLParagraphElement>(null);
-  const nameRef = useRef<HTMLParagraphElement>(null);
+  const lineRef = useRef<HTMLDivElement>(null);
+  const hiRef = useRef<HTMLSpanElement>(null);
+  const nameRef = useRef<HTMLSpanElement>(null);
+  const subtitleRef = useRef<HTMLParagraphElement>(null);
+  const progressRef = useRef<HTMLDivElement>(null);
   const completedRef = useRef(false);
 
   const [shouldRender, setShouldRender] = useState(false);
@@ -57,12 +45,16 @@ export function IntroOverlay({
     if (!shouldRender) return;
 
     const overlay = overlayRef.current;
+    const line = lineRef.current;
     const hi = hiRef.current;
     const name = nameRef.current;
-    if (!overlay || !hi || !name) return;
+    const subtitle = subtitleRef.current;
+    const progress = progressRef.current;
+    if (!overlay || !line || !hi || !name || !subtitle || !progress) return;
 
-    gsap.set(hi, { opacity: 0, scale: 0.92 });
-    gsap.set(name, { opacity: 0, y: 24 });
+    gsap.set([hi, name, subtitle], { opacity: 0, y: 40 });
+    gsap.set(line, { scaleX: 0, transformOrigin: "left center" });
+    gsap.set(progress, { scaleX: 0, transformOrigin: "left center" });
 
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
@@ -75,67 +67,138 @@ export function IntroOverlay({
         },
       });
 
-      tl.to(hi, {
-        opacity: 1,
-        scale: 1,
-        duration: 0.65,
-        ease: "power4.out",
+      // Progress bar loads first
+      tl.to(progress, {
+        scaleX: 1,
+        duration: 1.8,
+        ease: "power2.inOut",
       })
-        .to(hi, { duration: 0.5 })
+        // "Hi" text rises in with a smooth stagger
         .to(
           hi,
           {
-            opacity: 0,
-            y: -24,
-            duration: 0.4,
-            ease: "power2.inOut",
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
           },
-          "-=0.2"
+          0.4
         )
+        // Decorative line expands
+        .to(
+          line,
+          {
+            scaleX: 1,
+            duration: 0.9,
+            ease: "power3.inOut",
+          },
+          0.7
+        )
+        // "this is Tabrez Khan" rises in
         .to(
           name,
           {
             opacity: 1,
             y: 0,
-            duration: 0.55,
-            ease: "power2.out",
+            duration: 0.8,
+            ease: "power3.out",
           },
-          "-=0.25"
+          1.0
         )
-        .to(name, { duration: 0.7 })
+        // Subtitle fades in
+        .to(
+          subtitle,
+          {
+            opacity: 0.5,
+            y: 0,
+            duration: 0.6,
+            ease: "power3.out",
+          },
+          1.3
+        )
+        // Hold for a moment
+        .to({}, { duration: 0.6 })
+        // Exit: everything fades out and overlay slides up
+        .to(
+          [hi, name, subtitle, line, progress],
+          {
+            opacity: 0,
+            y: -30,
+            duration: 0.5,
+            stagger: 0.05,
+            ease: "power3.in",
+          }
+        )
         .to(overlay, {
-          opacity: 0,
-          y: "-100vh",
-          duration: 0.85,
-          ease: "power4.in",
-        });
+          clipPath: "inset(0 0 100% 0)",
+          duration: 0.9,
+          ease: "power4.inOut",
+        }, "-=0.2");
     }, overlayRef);
 
     return () => {
       if (!completedRef.current) ctx.revert();
     };
-  }, [shouldRender]);
+  }, [shouldRender, onComplete]);
 
   if (!shouldRender || isComplete) return null;
 
   return (
     <div
       ref={overlayRef}
-      className={`fixed inset-0 z-[9999] flex items-center justify-center bg-neutral-950 ${plusJakarta.className}`}
+      className="fixed inset-0 z-[9999] flex items-center justify-center"
+      style={{ clipPath: "inset(0 0 0 0)", backgroundColor: "#0a0a0a" }}
       aria-hidden="true"
     >
-      <div className="flex flex-col items-center justify-center gap-8 px-6 text-center">
-        <p
+      {/* Subtle grid pattern background */}
+      <div
+        className="absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+                            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+          backgroundSize: "60px 60px",
+        }}
+      />
+
+      <div className="relative flex flex-col items-center justify-center gap-4 px-6 text-center">
+        {/* Progress bar */}
+        <div className="mb-8 h-[1px] w-48 overflow-hidden bg-neutral-800">
+          <div
+            ref={progressRef}
+            className="h-full w-full"
+            style={{ backgroundColor: "#c8f031" }}
+          />
+        </div>
+
+        {/* Hi text */}
+        <span
           ref={hiRef}
-          className="text-6xl font-extrabold tracking-tight text-white sm:text-7xl md:text-8xl"
+          className="font-heading text-lg font-medium uppercase tracking-[0.3em] text-neutral-400"
         >
-          HI!!!
-        </p>
-        <p
+          Hi, welcome
+        </span>
+
+        {/* Decorative line */}
+        <div
+          ref={lineRef}
+          className="my-2 h-[1px] w-32"
+          style={{ backgroundColor: "#c8f031" }}
+        />
+
+        {/* Name */}
+        <span
           ref={nameRef}
-          className="text-2xl font-bold tracking-tight text-white sm:text-3xl md:text-4xl"
+          className="font-heading text-5xl font-bold tracking-tight text-neutral-100 sm:text-6xl md:text-7xl"
         >
-          This is Tabrez Khan
+          {"this is Tabrez Khan"}
+        </span>
+
+        {/* Subtitle */}
+        <p
+          ref={subtitleRef}
+          className="mt-2 font-sans text-sm font-light uppercase tracking-[0.25em] text-neutral-500"
+        >
+          Developer / Designer / Creator
         </p>
       </div>
     </div>
