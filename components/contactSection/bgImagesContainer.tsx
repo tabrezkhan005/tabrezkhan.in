@@ -2,6 +2,7 @@ import { BgImage } from "@/components/contactSection/bgImage";
 import React, { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+gsap.registerPlugin(CustomEase);
 import { getRandValues, shuffle } from "@/lib/utils";
 
 type BgImageItem = (typeof bgImagesData)[number];

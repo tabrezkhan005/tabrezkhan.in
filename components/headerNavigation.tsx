@@ -1,6 +1,7 @@
 import React, { use, useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+gsap.registerPlugin(CustomEase);
 import { Header } from "./header";
 import { useAppSelector } from "@/hooks/reduxHooks";
 import { Footer } from "./contactSection/footer";

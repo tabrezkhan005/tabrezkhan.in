@@ -5,6 +5,7 @@ import ReactFullpage from "@fullpage/react-fullpage";
 import { gsap } from "gsap";
 
 import { CustomEase } from "gsap/CustomEase";
+gsap.registerPlugin(CustomEase);
 
 import SplitType from "split-type";
 import { useAppDispatch } from "@/hooks/reduxHooks";

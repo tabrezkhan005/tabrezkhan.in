@@ -2,6 +2,7 @@ import React, { useEffect, useRef } from "react";
 import Magentic from "./ui/magentic";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+gsap.registerPlugin(CustomEase);
 import { useAppDispatch } from "@/hooks/reduxHooks";
 import { toggleMenu } from "@/redux/states/menuSlice";
 import { cn } from "@/lib/utils";
