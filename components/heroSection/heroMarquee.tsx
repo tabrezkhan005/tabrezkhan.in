@@ -51,8 +51,8 @@ export function HeroMarquee({}) {
     };
   }, []);
   return (
-    <div className="wrapperRollingText anime pointer-events-none z-20  select-none  rounded-3xl tracking-[-0.1em] ">
-      <div className="rollingText  md:!text-[200px]">
+    <div className="wrapperRollingText intro-reveal-marquee anime pointer-events-none z-20 select-none rounded-3xl tracking-[-0.1em]">
+      <div className="rollingText !text-[100px] md:!text-[200px]">
         - Tabrez - Khan - Tabrez - Khan&nbsp;
       </div>
     </div>

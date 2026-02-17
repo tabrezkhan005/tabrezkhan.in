@@ -3,8 +3,9 @@ import Image from "next/image";
 import Magentic from "../ui/magentic";
 import { gsap } from "gsap";
 import { CustomEase } from "gsap/CustomEase";
+import { cn } from "@/lib/utils";
 
-export function HeroButton({}) {
+export function HeroButton({ className }: { className?: string }) {
   const rotateImageRef = useRef<gsap.core.Timeline | null>(null);
   const rotating = useRef(null);
 
@@ -28,7 +29,7 @@ export function HeroButton({}) {
   return (
     <Magentic
       strength={50}
-      className="email_section1 anime isolate z-20  rounded-full !text-[clamp(16px,_1vw_+_14px,_24px)] md:bg-[#272727]"
+      className={cn("hero-footer-cta-btn anime isolate z-30 rounded-full !text-[clamp(16px,_1vw_+_14px,_24px)] md:bg-[#272727]", className)}
       onMouseEnter={() => rotateImageRef.current?.play()}
       onMouseLeave={() => rotateImageRef.current?.pause()}
       href="#second"

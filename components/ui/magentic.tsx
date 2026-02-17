@@ -97,9 +97,13 @@ const Magentic = ({
     },
     scrambleEl: HTMLElement,
   ) {
-    if (typeof ScrambleTextPlugin !== "undefined") {
+    const plugin =
+      typeof window !== "undefined"
+        ? (window as Window & { ScrambleTextPlugin?: unknown }).ScrambleTextPlugin
+        : undefined;
+    if (plugin && scrambleEl) {
       gsap.set(scrambleEl, {
-        width: scrambleEl?.clientWidth,
+        width: scrambleEl.clientWidth,
       });
       gsap
         .to(scrambleEl, {
@@ -121,26 +125,28 @@ const Magentic = ({
           className,
       )}
       onMouseEnter={() => {
-        if (scrambleParams) {
-          if (magnet.current === null) {
-            return;
-          }
-          const magnetButton = magnet.current as HTMLAnchorElement;
-          gsap.registerPlugin(ScrambleTextPlugin);
-
-          const scrambleEl = magnetButton.querySelectorAll(".scrambleText");
-          if (scrambleParams instanceof Array) {
-            scrambleParams.forEach((param, i) => {
+        if (scrambleParams && magnet.current) {
+          const ScrambleTextPlugin =
+            typeof window !== "undefined"
+              ? (window as Window & { ScrambleTextPlugin?: unknown }).ScrambleTextPlugin
+              : undefined;
+          if (ScrambleTextPlugin) {
+            gsap.registerPlugin(ScrambleTextPlugin);
+            const magnetButton = magnet.current as HTMLAnchorElement;
+            const scrambleEl = magnetButton.querySelectorAll(".scrambleText");
+            if (scrambleParams instanceof Array) {
+              scrambleParams.forEach((param, i) => {
+                handleScramble(
+                  { speed: 0.1, chars: "-x", ...param },
+                  scrambleEl[i] as HTMLElement,
+                );
+              });
+            } else {
               handleScramble(
-                { speed: 0.1, chars: "-x", ...param },
-                scrambleEl[i] as HTMLElement,
+                { speed: 0.1, chars: "-x", ...scrambleParams },
+                scrambleEl[0] as HTMLElement,
               );
-            });
-          } else {
-            handleScramble(
-              { speed: 0.1, chars: "-x", ...scrambleParams },
-              scrambleEl[0] as HTMLElement,
-            );
+            }
           }
         }
         onMouseEnter?.();

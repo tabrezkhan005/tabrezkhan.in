@@ -2,6 +2,42 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Birthstone";
+  src: url("/fonts/Birthstone-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Explora";
+  src: url("/fonts/Explora-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "TurretRoad";
+  src: url("/fonts/TurretRoad-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+.font-birthstone {
+  font-family: "Birthstone", cursive;
+}
+
+.font-explora {
+  font-family: "Explora", cursive;
+}
+
+.font-turretRoad {
+  font-family: "TurretRoad", sans-serif;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -87,6 +123,10 @@
       --paddingY: 80px;
     }
   }
+  .theme {
+    --animate-marquee: marquee var(--duration) infinite linear;
+    --animate-marquee-vertical: marquee-vertical var(--duration) linear infinite;
+  }
 }
 
 @layer base {
@@ -112,6 +152,14 @@
   *::selection {
     color: var(--colorDark);
     background-color: var(--colorPrimary);
+  }
+
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
 
@@ -170,39 +218,33 @@ input:-webkit-autofill:active {
   );
 }
 
-.cursor1 {
+/* Custom cursor: classic arrow, smooth follow, site-wide */
+@media (hover: hover) {
+  body,
+  body * {
+    cursor: none !important;
+  }
+}
+
+.custom-cursor {
   position: fixed;
-  width: 16px;
-  height: 16px;
-  background-color: var(--primary-color);
-  border-radius: 50%;
   left: 0;
   top: 0;
+  width: 20px;
+  height: 20px;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
+  color: #fff;
 }
 
-.cursor2 {
-  position: fixed;
-  width: 24px;
-  height: 24px;
-  border: 1px solid var(--primary-color);
-  border-radius: 50%;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  z-index: 999;
+.custom-cursor .cursor-arrow {
+  filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.9));
 }
 
 @media (hover: none) {
-  .cursor1 {
-    display: none;
-  }
-
-  .cursor2 {
-    display: none;
+  .custom-cursor {
+    display: none !important;
   }
 }
 
@@ -220,8 +262,10 @@ input:-webkit-autofill:active {
   height: 100% !important;
   width: 100% !important;
   min-height: 100dvh !important;
+  min-height: 100svh !important;
   position: relative !important;
   isolation: isolate !important;
+  -webkit-overflow-scrolling: touch;
 }
 
 .fp-overflow {
@@ -287,7 +331,7 @@ input:-webkit-autofill:active {
 .digital-ball {
   /* width: clamp(2em, 4em, 11em);
   aspect-ratio: 1/1;
-  border-radius: 50%; 
+  border-radius: 50%;
   transform: translate(-50%, -50%);  */
   position: relative;
   overflow: hidden;
@@ -429,4 +473,207 @@ input:-webkit-autofill:active {
 /* Intro overlay: disable scroll while active */
 body.intro-overlay-active {
   overflow: hidden;
+}
+
+/* Intro reveal: hide hero content while intro is active, then stagger fade-in */
+body[data-intro="active"] .first .intro-reveal-header,
+body[data-intro="active"] .first .intro-reveal-btn,
+body[data-intro="active"] .first .intro-reveal-text,
+body[data-intro="active"] .first .intro-reveal-tagline,
+body[data-intro="active"] .first .intro-reveal-marquee,
+.hero-center-char {
+  opacity: 0;
+}
+
+@keyframes introRevealFade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+body.intro-reveal .first .intro-reveal-header {
+  animation: introRevealFade 0.8s 0s ease forwards;
+}
+body.intro-reveal .first .intro-reveal-btn {
+  animation: introRevealFade 0.8s 0.35s ease forwards;
+}
+body.intro-reveal .first .intro-reveal-text {
+  animation: introRevealFade 0.8s 0.65s ease forwards;
+}
+body.intro-reveal .first .intro-reveal-tagline {
+  animation: introRevealFade 0.8s 0.8s ease forwards;
+}
+body.intro-reveal .first .intro-reveal-marquee {
+  animation: introRevealFade 0.8s 0.95s ease forwards;
+}
+
+.section.what-i-do {
+  display: grid !important;
+  align-items: stretch !important;
+}
+
+/* ===== Mobile-Friendly Global Enhancements ===== */
+@media screen and (max-width: 1024px) {
+  .section {
+    padding-left: clamp(16px, 4vw, 24px) !important;
+    padding-right: clamp(16px, 4vw, 24px) !important;
+    height: auto !important;
+    min-height: 100svh !important;
+    overflow: visible !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important; /* Allow content to flow naturally */
+    padding-top: 80px !important; /* Space for header */
+    padding-bottom: 80px !important; /* Space for bottom nav/footer */
+  }
+
+  /* Prevent horizontal overflow on mobile */
+  html, body {
+    overflow-x: hidden;
+    max-width: 100vw;
+  }
+
+  /* Ensure touch scrolling works smoothly in lock-scroll areas */
+  .lock-scroll {
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide bulge animation on mobile */
+  /* Force visibility only after reveal or if intro is not active */
+  .intro-reveal .hero-center-char,
+  .intro-reveal .intro-reveal-header,
+  .intro-reveal .intro-reveal-btn,
+  .intro-reveal .intro-reveal-text,
+  .intro-reveal .intro-reveal-tagline,
+  .intro-reveal .intro-reveal-marquee {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Ensure marquee stays behind main text */
+  .intro-reveal-marquee {
+    z-index: 1 !important;
+  }
+
+  /* Specific fix for Hero Center chars which GSAP animates */
+  .hero-center-char {
+     transform: translateY(0) !important;
+  }
+
+  /* Hide bulge animation on mobile */
+  .rounded__div__down,
+  .rounded__div__up,
+  .round__bg__down,
+  .round__bg__up {
+    display: none !important;
+  }
+
+  /* Specific override for Hero Section to fix alignment */
+  .section.first,
+  .section__1 {
+    height: 100svh !important;
+    justify-content: center !important;
+    position: relative !important;
+  }
+
+  /* Force absolute positioning for Hero elements on mobile */
+  /* Remove relative positioning from wrapper so absolute children anchor to the SECTION */
+  .section1__wrapper {
+    position: static !important;
+  }
+
+  .section__1 .left {
+    position: absolute !important;
+    bottom: 20px !important;
+    left: 20px !important;
+    top: auto !important;
+    transform: none !important;
+    width: auto !important;
+    z-index: 50 !important;
+  }
+
+  .hero-footer-cta-btn {
+    position: absolute !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    top: auto !important;
+    transform: none !important;
+    z-index: 50 !important;
+  }
+}
+
+@theme inline {
+  @keyframes marquee {
+  from {
+    transform: translateX(0);
+    }
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+    }
+  }
+  @keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+    }
+  to {
+    transform: translateY(calc(-100% - var(--gap)));
+    }
+  }
+}
+
+/* Custom scrollbar for dark UI */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 3px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+@media screen and (max-width: 1024px) {
+  /* Final robust overrides for Hero Section mobile layout */
+  .section.first, .section__1 {
+     padding-top: 0 !important;
+     padding-bottom: 0 !important;
+     justify-content: center !important;
+     height: 100svh !important;
+     min-height: 100svh !important;
+     position: relative !important;
+     display: flex !important;
+     flex-direction: column !important;
+  }
+  .section1__wrapper {
+     position: static !important;
+     height: 100% !important;
+     width: 100% !important;
+  }
+  .hero-footer-role-text {
+     position: absolute !important;
+     bottom: 20px !important;
+     left: 20px !important;
+     right: auto !important;
+     top: auto !important;
+     transform: none !important;
+     width: auto !important;
+     z-index: 50 !important;
+     padding: 0 !important;
+  }
+  .hero-footer-cta-btn {
+     position: absolute !important;
+     bottom: 20px !important;
+     right: 20px !important;
+     left: auto !important;
+     top: auto !important;
+     transform: none !important;
+     z-index: 50 !important;
+  }
 }

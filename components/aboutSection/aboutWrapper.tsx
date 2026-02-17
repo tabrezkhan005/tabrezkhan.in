@@ -112,7 +112,7 @@ export function AboutWrapper({}) {
 
       <a
         href={links.work}
-        className="anime relative flex h-[260px] w-full items-center justify-center md:h-[380px]"
+        className="anime relative flex h-[180px] w-full items-center justify-center md:h-[380px]"
       >
         <div className="flex flex-col items-center justify-center">
           <div className="anime">

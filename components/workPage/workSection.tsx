@@ -28,13 +28,15 @@ export function WorkSection({
     "bg-colorSecondaryLight",
   ];
 
+  if (!item) return null;
+
   return (
     <div
       className={`section s${index} ${
         color == "Dark" ? "lightGradient" : "darkGradient"
       }
       text-color${color} `}
-      key={item.link}
+      key={item?.link || index}
     >
       <Header color={color}></Header>
       <Bulge type={color} />
@@ -49,9 +51,9 @@ export function WorkSection({
               index + 1
             } anime rounded-3xl `}
             target="_blank"
-            href={item.link}
+            href={item?.link}
             style={{
-              background: `url(${item.imageLink}) center center / contain no-repeat`,
+              background: `url(${item?.imageLink}) center center / contain no-repeat`,
             }}
           >
             <div className="image__over">
@@ -65,21 +67,21 @@ export function WorkSection({
           </a>
           <div className="title ">
             <h2 className="title__text js-letter anime mask font-bold tracking-tight">
-              {item.title}
+              {item?.title}
               <br />
             </h2>
             <div className="js-letter anime borderv">
               <span className={`bg-colorSecondary${color}`}></span>
               <span className={`bg-colorSecondary${color}`}></span>
             </div>
-            <p className="title__lead js-letter anime ">{item.description}</p>
+            <p className="title__lead js-letter anime ">{item?.description}</p>
             <div className="btn-wrap js-letter anime">
               <Magentic
                 strength={50}
                 className={`btn text-color${
                   color === "Dark" ? "Light" : "Dark"
                 } bg-color${color} mask`}
-                href={item.link}
+                href={item?.link}
                 target="_blank"
                 scrambleParams={{ text: "Show Me", chars: "-x" }}
               >
@@ -87,10 +89,9 @@ export function WorkSection({
                   <span className="scrambleText">Show Me</span>
                   <svg
                     className="ml-4 inline w-[0.8em] -rotate-[75deg] text-inherit" // width="34px"
-                    // height="34px"
                     viewBox="0 0 14 14"
                     version="1.1"
-                    xmlns="http://www.w3.org/2000/svg" // xmlns:xlink="http://www.w3.org/1999/xlink"
+                    xmlns="http://www.w3.org/2000/svg"
                   >
                     <title>arrow-up-right</title>
                     <g
@@ -127,11 +128,12 @@ export function WorkSection({
       </div>
 
       <div className="anime absolute bottom-10 flex w-full items-end justify-center gap-6">
-        {Array(length)
+        {Array.from({ length: length || 0 })
           .fill(0)
           .map((_, i) => {
             return (
               <div
+                key={i}
                 className={cn(
                   `h-4 w-1 bg-colorSecondary${color} rounded-full`,
                   ` ${i === index ? `h-10 bg-color${color}` : ""}`,

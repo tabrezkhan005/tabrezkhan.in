@@ -15,7 +15,7 @@ const projectsData = [
       </>
     ),
     description: "Webflow Site",
-    link: "https://www.yieldstone.ai/",
+    link: "#",
     imageLink: "/img/projects/1.avif",
   },
   {
@@ -25,7 +25,7 @@ const projectsData = [
       </>
     ),
     description: "Figma Plugin",
-    link: "https://www.figma.com/community/plugin/1380643582596908985/simple-font-replacer",
+    link: "#",
     imageLink: "/img/projects/2.avif",
   },
   {
@@ -35,7 +35,7 @@ const projectsData = [
       </>
     ),
     description: "Next.js Site",
-    link: "https://generator.andytoken.com/",
+    link: "#",
     imageLink: "/img/projects/3.avif",
   },
   {
@@ -45,7 +45,7 @@ const projectsData = [
       </>
     ),
     description: "Webflow Site",
-    link: "https://ponkecoin-ninetyeight.webflow.io/",
+    link: "#",
     imageLink: "/img/projects/4.avif",
   },
 
@@ -56,7 +56,7 @@ const projectsData = [
       </>
     ),
     description: "Webflow Site",
-    link: "https://amanfx.webflow.io/",
+    link: "#",
     imageLink: "/img/projects/5.avif",
   },
   {
@@ -66,7 +66,7 @@ const projectsData = [
       </>
     ),
     description: "UI Design",
-    link: "https://www.figma.com/proto/Tzz9bwrjHtSza87b1l3D0i/Inner-Strength-UI-Design?type=design&node-id=37-10&t=pq2KDLjYbMU4LFgA-1&scaling=min-zoom&page-id=0%3A1&mode=design",
+    link: "#",
     imageLink: "/img/projects/6.avif",
   },
 ];
@@ -84,12 +84,12 @@ export default function WorkPage() {
             PROJECTS
           </div>
 
-          {projectsData.map((item, index) => (
+          {projectsData?.map((item, index) => (
             <WorkSection
               key={index}
               item={item}
               index={index}
-              length={projectsData.length}
+              length={projectsData?.length || 0}
               color={index % 2 !== 0 ? "Light" : "Dark"}
             />
           ))}

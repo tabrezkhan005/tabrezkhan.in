@@ -14,17 +14,29 @@ const dM_Sans = DM_Sans({ subsets: ["latin-ext"] });
 const satoshi = localFont({
   src: "../font/satoshi/Satoshi-Variable.woff2",
   style: "normal",
+  variable: "--font-satoshi",
 });
 
 const helvetica = localFont({
   src: "../font/helvetica/HelveticaNowDisplay-Medium.woff2",
   style: "normal",
+  variable: "--font-helvetica",
+});
+
+const explora = localFont({
+  src: "../font/explora/Explora-Regular.ttf",
+  variable: "--font-explora",
+});
+
+const turretRoad = localFont({
+  src: "../font/turretRoad/TurretRoad-Regular.ttf",
+  variable: "--font-turret-road",
 });
 
 export const metadata: Metadata = {
-  title: "Vipul Kumar • Developer",
+  title: "Tabrez Khan • Developer",
   description:
-    "Vipul Kumar is a developer who creates beautiful and pixel perfect websites with zero effort in reviews.",
+    "Tabrez Khan is a developer who creates beautiful and pixel perfect websites with zero effort in reviews.",
 };
 
 export default function RootLayout({
@@ -52,7 +64,7 @@ export default function RootLayout({
         <GoogleAnalytics />
       </head>
 
-      <body className={helvetica.className}>
+      <body className={`${helvetica.className} ${explora.variable} ${turretRoad.variable}`}>
         <StoreProvider>{children}</StoreProvider>
       </body>
       <Script src="https://cdn.jsdelivr.net/gh/vipulkumar-dev/gsap@2024/ScrambleTextPlugin.min.js" />

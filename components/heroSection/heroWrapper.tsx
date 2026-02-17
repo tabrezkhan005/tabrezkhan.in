@@ -1,26 +1,18 @@
 import React from "react";
 import { HeroButton } from "./heroButton";
+import { HeroCenter } from "./heroCenter";
 import { HeroMarquee } from "./heroMarquee";
-export function HeroWrapper({}) {
+import { HeroRoleText } from "./heroRoleText";
+
+export function HeroWrapper() {
   return (
-    <main className="section1__wrapper relative max-w-maxWidth grow ">
-      <div className="myImage"></div>
-      <HeroButton />
-      <h2 className="left mask pointer-events-none z-20 pt-20">
-        <div className="free anime">
-          Freelance&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        </div>
-        <div className="animation__wrapper anime">
-          <span className="animate__this animate__this1 left-0">
-            Webflow Developer<span className="yellow__it">.</span>
-            <br />
-          </span>
-          <span className="animate__this animate__this2 left-0">
-            Next.js Developer<span className="yellow__it">.</span>
-          </span>
-          <span>&nbsp;</span>
-        </div>
-      </h2>
+    <main className="section1__wrapper relative flex h-full max-w-maxWidth grow flex-col">
+      <div className="myImage" />
+      <div className="flex flex-1 flex-col items-center justify-center">
+        <HeroCenter />
+      </div>
+      <HeroButton className="intro-reveal-btn" />
+      <HeroRoleText />
       <HeroMarquee />
     </main>
   );
